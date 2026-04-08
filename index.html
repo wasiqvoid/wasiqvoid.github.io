@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -10,7 +10,8 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
+    /* ── THEME TOKENS ── */
+    [data-theme="dark"] {
       --bg:       #0d1117;
       --bg2:      #161b22;
       --bg3:      #1c2330;
@@ -25,6 +26,26 @@
       --blue:     #79c0ff;
       --orange:   #f0b870;
       --red:      #e05c5c;
+      --shadow:   rgba(0,0,0,0.55);
+      --grid-line: rgba(230,168,23,0.03);
+    }
+    [data-theme="light"] {
+      --bg:       #f6f8fa;
+      --bg2:      #ffffff;
+      --bg3:      #eaeef2;
+      --border:   #d0d7de;
+      --text:     #24292f;
+      --dim:      #57606a;
+      --heading:  #0d1117;
+      --gold:     #b5860d;
+      --gold-dim: #d4a520;
+      --teal:     #0d8a84;
+      --green:    #1a7f37;
+      --blue:     #0969da;
+      --orange:   #953800;
+      --red:      #cf222e;
+      --shadow:   rgba(0,0,0,0.12);
+      --grid-line: rgba(181,134,13,0.05);
     }
 
     html { scroll-behavior: smooth; }
@@ -36,14 +57,15 @@
       font-weight: 300;
       line-height: 1.7;
       overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     body::before {
       content: '';
       position: fixed; inset: 0;
       background-image:
-        linear-gradient(rgba(230,168,23,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(230,168,23,0.03) 1px, transparent 1px);
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
       background-size: 60px 60px;
       pointer-events: none; z-index: 0;
     }
@@ -54,9 +76,10 @@
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       padding: 1.1rem 0;
-      background: rgba(13,17,23,0.92);
+      background: color-mix(in srgb, var(--bg) 92%, transparent);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
+      transition: background 0.3s ease;
     }
     nav .inner {
       max-width: 1100px; margin: 0 auto; padding: 0 2rem;
@@ -68,6 +91,7 @@
       transition: opacity 0.2s;
     }
     .nav-logo:hover { opacity: 0.7; }
+    .nav-right { display: flex; align-items: center; gap: 2rem; }
     .nav-links { display: flex; gap: 2.5rem; list-style: none; }
     .nav-links a {
       font-family: 'DM Mono', monospace; font-size: 0.72rem;
@@ -75,6 +99,22 @@
       letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s;
     }
     .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+
+    /* ── THEME TOGGLE ── */
+    .theme-toggle {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.3rem 0.55rem;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 0.35rem;
+      transition: border-color 0.2s, background 0.3s;
+      font-size: 0.78rem;
+      color: var(--dim);
+    }
+    .theme-toggle:hover { border-color: var(--gold); color: var(--gold); }
+    .theme-toggle .icon { font-size: 0.9rem; transition: transform 0.35s ease; }
+    .theme-toggle:hover .icon { transform: rotate(20deg); }
 
     /* ── BUTTONS ── */
     .btn {
@@ -122,12 +162,14 @@
     .hero-terminal {
       background: var(--bg2); border: 1px solid var(--border); border-radius: 10px;
       overflow: hidden; opacity: 0; animation: fadeIn 0.9s ease forwards 0.85s;
-      box-shadow: 0 24px 64px rgba(0,0,0,0.55);
+      box-shadow: 0 24px 64px var(--shadow);
+      transition: background 0.3s, border-color 0.3s;
     }
     .t-bar {
       background: var(--bg3); padding: 0.7rem 1rem;
       display: flex; align-items: center; gap: 0.45rem;
       border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
     }
     .dot { width: 10px; height: 10px; border-radius: 50%; }
     .dot-r { background: var(--red); }
@@ -170,7 +212,6 @@
     .exp-item {
       display: grid; grid-template-columns: 190px 1fr;
       gap: 2.5rem; padding: 2.5rem 0; border-bottom: 1px solid var(--border);
-      transition: opacity 0.5s ease, transform 0.5s ease;
     }
     .exp-date { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--dim); margin-bottom: 0.35rem; padding-top: 0.25rem; }
     .exp-co   { font-family: 'DM Mono', monospace; font-size: 0.76rem; color: var(--gold); }
@@ -185,24 +226,33 @@
     .proj-card {
       background: var(--bg2); border: 1px solid var(--border); border-radius: 8px;
       padding: 1.75rem; display: flex; flex-direction: column; gap: 0.85rem;
-      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s, background 0.3s;
     }
     .proj-card:hover { border-color: var(--gold); transform: translateY(-5px); box-shadow: 0 14px 44px rgba(230,168,23,0.1); }
+    .proj-card.new-card { border-color: var(--gold-dim); }
+    .proj-card.new-card::after {
+      content: 'NEW'; font-family: 'DM Mono', monospace; font-size: 0.55rem;
+      color: var(--gold); background: rgba(230,168,23,0.1);
+      border: 1px solid var(--gold-dim); border-radius: 3px;
+      padding: 0.1rem 0.4rem; letter-spacing: 0.1em;
+      position: absolute; top: 1.2rem; right: 1.2rem;
+    }
+    .proj-card.new-card { position: relative; }
     .proj-icon { width: 38px; height: 38px; background: rgba(230,168,23,0.07); border: 1px solid var(--gold-dim); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
     .proj-name { font-family: 'DM Serif Display', serif; font-size: 1.02rem; color: var(--heading); line-height: 1.28; }
     .proj-desc { font-size: 0.82rem; color: var(--dim); flex: 1; line-height: 1.68; }
     .proj-tags { display: flex; flex-wrap: wrap; gap: 0.38rem; }
-    .tag { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--dim); background: var(--bg3); border: 1px solid var(--border); padding: 0.18rem 0.52rem; border-radius: 3px; }
+    .tag { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--dim); background: var(--bg3); border: 1px solid var(--border); padding: 0.18rem 0.52rem; border-radius: 3px; transition: background 0.3s; }
     .proj-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.3rem; }
     .proj-link { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--gold); text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem; transition: gap 0.2s; }
     .proj-link:hover { gap: 0.55rem; }
 
     /* ── SKILLS ── */
     .skills-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.4rem; }
-    .skill-group { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 1.75rem; }
+    .skill-group { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 1.75rem; transition: background 0.3s; }
     .sg-title { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--gold); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 1.1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
     .pills { display: flex; flex-wrap: wrap; gap: 0.45rem; }
-    .pill { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--text); background: var(--bg3); border: 1px solid var(--border); padding: 0.28rem 0.72rem; border-radius: 20px; transition: border-color 0.2s, color 0.2s; cursor: default; }
+    .pill { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--text); background: var(--bg3); border: 1px solid var(--border); padding: 0.28rem 0.72rem; border-radius: 20px; transition: border-color 0.2s, color 0.2s, background 0.3s; cursor: default; }
     .pill:hover { border-color: var(--gold); color: var(--gold); }
     .pill.hot { border-color: var(--gold-dim); color: var(--gold); }
 
@@ -212,7 +262,7 @@
     .cert-item {
       display: flex; align-items: center; gap: 1rem;
       padding: 1.1rem 1.4rem; background: var(--bg2); border: 1px solid var(--border); border-radius: 6px;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, background 0.3s;
     }
     .cert-item:hover { border-color: var(--gold-dim); }
     .cert-icon { font-size: 1.3rem; }
@@ -227,7 +277,7 @@
     .c-link {
       display: flex; align-items: center; gap: 1rem;
       padding: 1rem 1.4rem; background: var(--bg2); border: 1px solid var(--border);
-      border-radius: 6px; text-decoration: none; transition: border-color 0.2s, transform 0.2s;
+      border-radius: 6px; text-decoration: none; transition: border-color 0.2s, transform 0.2s, background 0.3s;
     }
     .c-link:hover { border-color: var(--gold); transform: translateX(5px); }
     .c-icon  { font-size: 1.05rem; }
@@ -264,6 +314,7 @@
       .skills-grid { grid-template-columns: 1fr; }
       .cert-grid   { grid-template-columns: 1fr; }
       .nav-links   { gap: 1.5rem; }
+      .nav-right   { gap: 1rem; }
     }
   </style>
 </head>
@@ -273,12 +324,17 @@
 <nav>
   <div class="inner">
     <a href="#hero" class="nav-logo">wasiqvoid</a>
-    <ul class="nav-links">
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span class="icon" id="themeIcon">☀️</span>
+      </button>
+    </div>
   </div>
 </nav>
 
@@ -310,7 +366,7 @@
           <span class="tl ti1"><span class="tk">"name"</span>       : <span class="ts">"Wasiq Bakhsh"</span>,</span>
           <span class="tl ti1"><span class="tk">"role"</span>       : <span class="ts">"Data Scientist"</span>,</span>
           <span class="tl ti1"><span class="tk">"location"</span>   : <span class="ts">"Buffalo, NY"</span>,</span>
-          <span class="tl ti1"><span class="tk">"education"</span>  : <span class="ts">"MS @ UB (2027)"</span>,</span>
+          <span class="tl ti1"><span class="tk">"education"</span>  : <span class="ts">"MS @ UB (2026)"</span>,</span>
           <span class="tl ti1"><span class="tk">"experience"</span> : <span class="tn">3</span> <span class="td">years</span>,</span>
           <span class="tl ti1"><span class="tk">"stack"</span>      : [</span>
           <span class="tl ti2"><span class="ts">"Python"</span>, <span class="ts">"SQL"</span>, <span class="ts">"TensorFlow"</span>,</span>
@@ -415,6 +471,7 @@
     <h2 class="sec-title">Things I've <span>built</span></h2>
     <div class="proj-grid">
 
+      <!-- ORIGINAL 6 -->
       <div class="proj-card">
         <div class="proj-icon">🗣️</div>
         <div class="proj-name">AI-Powered SQL Query Assistant</div>
@@ -474,8 +531,8 @@
         <div class="proj-links">
           <a href="https://github.com/wasiqvoid" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a>
         </div>
-      </div> 
-      
+      </div>
+
       <div class="proj-card">
         <div class="proj-icon">🧠</div>
         <div class="proj-name">EEG Seizure Prediction with ML</div>
@@ -486,7 +543,44 @@
         <div class="proj-links">
           <a href="https://github.com/wasiqvoid/EEG-Seizure-Prediction-with-ML" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a>
         </div>
-      </div> 
+      </div>
+
+      <!-- NEW PROJECTS -->
+      <div class="proj-card new-card">
+        <div class="proj-icon">🔁</div>
+        <div class="proj-name">Agentic RAG Pipeline with LangGraph</div>
+        <p class="proj-desc">Production-ready agentic AI system using LangGraph for multi-step reasoning and tool execution. Implements a Retrieval-Augmented Generation pipeline with GPT-4, vector search, and hallucination grounding — deployed via FastAPI on AWS Lambda.</p>
+        <div class="proj-tags">
+          <span class="tag">LangGraph</span><span class="tag">GPT-4</span><span class="tag">RAG</span><span class="tag">FastAPI</span><span class="tag">AWS Lambda</span>
+        </div>
+        <div class="proj-links">
+          <a href="https://github.com/wasiqvoid" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a>
+        </div>
+      </div>
+
+      <div class="proj-card new-card">
+        <div class="proj-icon">🏗️</div>
+        <div class="proj-name">Lakehouse Data Engineering Pipeline</div>
+        <p class="proj-desc">Enterprise-grade data engineering stack built on Databricks and Delta Lake. Implements metadata-driven ingestion, PySpark transformations, and a Kimball Star Schema warehouse on Snowflake — CI/CD via Azure DevOps.</p>
+        <div class="proj-tags">
+          <span class="tag">Databricks</span><span class="tag">Delta Lake</span><span class="tag">PySpark</span><span class="tag">Snowflake</span><span class="tag">Azure DevOps</span>
+        </div>
+        <div class="proj-links">
+          <a href="https://github.com/wasiqvoid" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a>
+        </div>
+      </div>
+
+      <div class="proj-card new-card">
+        <div class="proj-icon">📊</div>
+        <div class="proj-name">LLM Evaluation &amp; Benchmarking Framework</div>
+        <p class="proj-desc">Structured evaluation framework for LLM outputs — implements rubric-based scoring, LLM-as-a-judge workflows, and hallucination detection across 600K+ records. Built to support production AI quality assurance pipelines with full audit trail documentation.</p>
+        <div class="proj-tags">
+          <span class="tag">LLM Eval</span><span class="tag">SHAP</span><span class="tag">Python</span><span class="tag">MLflow</span><span class="tag">Audit Trail</span>
+        </div>
+        <div class="proj-links">
+          <a href="https://github.com/wasiqvoid" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a>
+        </div>
+      </div>
 
     </div>
   </div>
@@ -529,12 +623,13 @@
         <div class="sg-title">🧬 &nbsp; NLP &amp; AI</div>
         <div class="pills">
           <span class="pill hot">FinBERT</span>
-          <span class="pill hot">OpenAI Whisper</span>
+          <span class="pill hot">LangGraph</span>
+          <span class="pill hot">GPT-4 / Claude</span>
+          <span class="pill">RAG Pipelines</span>
+          <span class="pill">Prompt Engineering</span>
           <span class="pill">NLTK</span>
-          <span class="pill">VADER</span>
-          <span class="pill">Generative AI</span>
           <span class="pill">LLMOps</span>
-          <span class="pill">ElevenLabs</span>
+          <span class="pill">Whisper</span>
         </div>
       </div>
 
@@ -548,19 +643,21 @@
           <span class="pill">Streamlit</span>
           <span class="pill">Render</span>
           <span class="pill">Git / GitHub</span>
+          <span class="pill">Azure DevOps</span>
         </div>
       </div>
 
       <div class="skill-group">
         <div class="sg-title">☁️ &nbsp; Cloud &amp; Data Engineering</div>
         <div class="pills">
-          <span class="pill hot">AWS S3</span>
-          <span class="pill">GCP</span>
-          <span class="pill">Hadoop</span>
-          <span class="pill">Spark</span>
+          <span class="pill hot">AWS S3 / Lambda</span>
+          <span class="pill hot">Databricks</span>
+          <span class="pill hot">Snowflake</span>
+          <span class="pill">Delta Lake</span>
+          <span class="pill">PySpark</span>
+          <span class="pill">Azure</span>
           <span class="pill">ETL Pipelines</span>
           <span class="pill">Pandas</span>
-          <span class="pill">NumPy</span>
         </div>
       </div>
 
@@ -572,6 +669,7 @@
           <span class="pill">Matplotlib</span>
           <span class="pill">Seaborn</span>
           <span class="pill">Excel</span>
+          <span class="pill">Looker Studio</span>
         </div>
       </div>
 
@@ -620,7 +718,7 @@
       <div class="contact-text">
         <p class="sec-lbl">// 04 — get in touch</p>
         <h2 class="sec-title">Let's <span>connect</span></h2>
-        <p>I'm actively looking for Data Science, Data Analysis, and Business Intelligence internships. If you have an opportunity or just want to talk data — reach out.</p>
+        <p>I'm actively looking for Data Science, Data Engineering, and AI internships. If you have an opportunity or just want to talk data — reach out.</p>
         <a href="mailto:Wasiqcyber@gmail.com" class="btn btn-primary">Send an Email →</a>
       </div>
 
@@ -652,7 +750,7 @@
   </div>
 </section>
 
-<!-- ── FOOTER ── */
+<!-- ── FOOTER ── -->
 <footer>
   <div class="container">
     <p>Designed &amp; built by <span>Wasiq Bakhsh</span> · Buffalo, NY · <span>2026</span></p>
@@ -668,6 +766,23 @@
     let current = '';
     sections.forEach(s => { if (window.scrollY >= s.offsetTop - 130) current = s.id; });
     navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+  });
+
+  // Theme toggle
+  const toggle = document.getElementById('themeToggle');
+  const icon   = document.getElementById('themeIcon');
+  const html   = document.documentElement;
+
+  const saved = localStorage.getItem('theme') || 'dark';
+  html.setAttribute('data-theme', saved);
+  icon.textContent = saved === 'dark' ? '☀️' : '🌙';
+
+  toggle.addEventListener('click', () => {
+    const current = html.getAttribute('data-theme');
+    const next    = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    icon.textContent = next === 'dark' ? '☀️' : '🌙';
+    localStorage.setItem('theme', next);
   });
 </script>
 
