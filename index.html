@@ -1,623 +1,1026 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Wasiq Bakhsh — Data Scientist & ML Engineer. MS Data Science at University at Buffalo. Seeking Summer 2026 internships."/>
-  <title>Wasiq Bakhsh — Data Scientist</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wasiq Bakhsh — AI/ML Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #020408;
+  --bg2: #060c14;
+  --surface: #0a1220;
+  --border: rgba(0,200,255,0.12);
+  --cyan: #00c8ff;
+  --amber: #f0a020;
+  --green: #10e080;
+  --purple: #8060f0;
+  --text: #c8dcea;
+  --muted: #4a6880;
+  --dim: #2a3a50;
+}
 
-    [data-theme="dark"] {
-      --bg:#0d1117;--bg2:#161b22;--bg3:#1c2330;--border:#2a3340;
-      --text:#cdd9e5;--dim:#768390;--heading:#f0f6fc;
-      --gold:#e6a817;--gold-dim:#7a5a0e;--teal:#39d0c8;
-      --green:#a8d8a8;--blue:#79c0ff;--orange:#f0b870;--red:#e05c5c;
-      --shadow:rgba(0,0,0,0.55);--grid-line:rgba(230,168,23,0.03);
-    }
-    [data-theme="light"] {
-      --bg:#f6f8fa;--bg2:#ffffff;--bg3:#eaeef2;--border:#d0d7de;
-      --text:#24292f;--dim:#57606a;--heading:#0d1117;
-      --gold:#b5860d;--gold-dim:#d4a520;--teal:#0d8a84;
-      --green:#1a7f37;--blue:#0969da;--orange:#953800;--red:#cf222e;
-      --shadow:rgba(0,0,0,0.12);--grid-line:rgba(181,134,13,0.05);
-    }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html { scroll-behavior: smooth; }
-    body {
-      background:var(--bg);color:var(--text);
-      font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7;
-      overflow-x:hidden;transition:background 0.3s ease,color 0.3s ease;
-    }
-    body::before {
-      content:'';position:fixed;inset:0;
-      background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),
-        linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);
-      background-size:60px 60px;pointer-events:none;z-index:0;
-    }
-    .container{max-width:1100px;margin:0 auto;padding:0 2rem;position:relative;z-index:1;}
+html { scroll-behavior: smooth; }
 
-    /* ── AVAILABILITY BANNER ── */
-    .avail-banner {
-      position:fixed;top:0;left:0;right:0;z-index:101;
-      background:linear-gradient(90deg,rgba(230,168,23,0.15),rgba(57,208,200,0.08),rgba(230,168,23,0.15));
-      border-bottom:1px solid var(--gold-dim);
-      padding:0.42rem 0;text-align:center;
-      font-family:'DM Mono',monospace;font-size:0.66rem;
-      color:var(--gold);letter-spacing:0.14em;
-      transition:background 0.3s;
-    }
-    .avail-banner span { color:var(--teal); }
-    .avail-dot {
-      display:inline-block;width:6px;height:6px;border-radius:50%;
-      background:var(--teal);margin-right:0.5rem;vertical-align:middle;
-      animation:pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.85)} }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
 
-    /* ── NAV ── */
-    nav {
-      position:fixed;top:28px;left:0;right:0;z-index:100;
-      padding:1.1rem 0;
-      background:color-mix(in srgb,var(--bg) 92%,transparent);
-      backdrop-filter:blur(14px);
-      border-bottom:1px solid var(--border);
-      transition:background 0.3s ease;
-    }
-    nav .inner {
-      max-width:1100px;margin:0 auto;padding:0 2rem;
-      display:flex;justify-content:space-between;align-items:center;
-    }
-    .nav-logo { font-family:'DM Mono',monospace;font-size:0.82rem;color:var(--gold);letter-spacing:0.1em;text-decoration:none;transition:opacity 0.2s; }
-    .nav-logo:hover { opacity:0.7; }
-    .nav-right { display:flex;align-items:center;gap:2rem; }
-    .nav-links { display:flex;gap:2.5rem;list-style:none; }
-    .nav-links a { font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--dim);text-decoration:none;letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s; }
-    .nav-links a:hover,.nav-links a.active { color:var(--gold); }
-    .theme-toggle {
-      background:var(--bg3);border:1px solid var(--border);border-radius:20px;
-      padding:0.3rem 0.55rem;cursor:pointer;display:flex;align-items:center;gap:0.35rem;
-      transition:border-color 0.2s,background 0.3s;font-size:0.78rem;color:var(--dim);
-    }
-    .theme-toggle:hover { border-color:var(--gold);color:var(--gold); }
-    .theme-toggle .icon { font-size:0.9rem;transition:transform 0.35s ease; }
-    .theme-toggle:hover .icon { transform:rotate(20deg); }
+/* ── CANVAS BACKGROUND ── */
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.4;
+  pointer-events: none;
+}
 
-    /* ── BUTTONS ── */
-    .btn {
-      display:inline-flex;align-items:center;gap:0.45rem;padding:0.7rem 1.5rem;border-radius:4px;
-      font-family:'DM Mono',monospace;font-size:0.76rem;letter-spacing:0.07em;text-decoration:none;
-      transition:all 0.22s;border:1px solid transparent;
-    }
-    .btn-primary { background:var(--gold);color:#0d1117;border-color:var(--gold);font-weight:500; }
-    .btn-primary:hover { background:#f0b820;transform:translateY(-2px);box-shadow:0 8px 28px rgba(230,168,23,0.28); }
-    .btn-outline { background:transparent;color:var(--text);border-color:var(--border); }
-    .btn-outline:hover { border-color:var(--gold);color:var(--gold);transform:translateY(-2px); }
-    .btn-resume {
-      background:transparent;color:var(--teal);border:1px solid var(--teal);
-      font-family:'DM Mono',monospace;font-size:0.76rem;letter-spacing:0.07em;
-      padding:0.7rem 1.5rem;border-radius:4px;text-decoration:none;
-      display:inline-flex;align-items:center;gap:0.45rem;transition:all 0.22s;
-    }
-    .btn-resume:hover { background:rgba(57,208,200,0.08);transform:translateY(-2px); }
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 48px;
+  background: rgba(2,4,8,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
 
-    /* ── HERO ── */
-    #hero { min-height:100vh;display:flex;align-items:center;padding-top:110px; }
-    .hero-inner { display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;width:100%; }
-    .hero-label { font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--gold);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:0.6rem;opacity:0;animation:fadeUp 0.6s ease forwards 0.2s; }
-    .hero-edu {
-      font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--dim);
-      letter-spacing:0.1em;margin-bottom:1.2rem;
-      opacity:0;animation:fadeUp 0.6s ease forwards 0.28s;
-    }
-    .hero-edu strong { color:var(--teal); }
-    h1.hero-title { font-family:'DM Serif Display',serif;font-size:clamp(2.8rem,5vw,4.4rem);color:var(--heading);line-height:1.08;margin-bottom:1.5rem;opacity:0;animation:fadeUp 0.7s ease forwards 0.35s; }
-    h1.hero-title em { font-style:italic;color:var(--gold); }
-    .hero-desc { font-size:1rem;color:var(--dim);max-width:460px;margin-bottom:2.5rem;line-height:1.75;opacity:0;animation:fadeUp 0.7s ease forwards 0.5s; }
-    .hero-buttons { display:flex;gap:0.85rem;flex-wrap:wrap;opacity:0;animation:fadeUp 0.7s ease forwards 0.65s; }
+.nav-logo {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: var(--cyan);
+  letter-spacing: 0.08em;
+}
+.nav-logo span { color: var(--amber); }
 
-    /* seeking pill */
-    .seeking-pill {
-      display:inline-flex;align-items:center;gap:0.5rem;
-      background:rgba(57,208,200,0.07);border:1px solid rgba(57,208,200,0.25);
-      border-radius:20px;padding:0.3rem 0.85rem;margin-bottom:0.9rem;
-      font-family:'DM Mono',monospace;font-size:0.64rem;color:var(--teal);letter-spacing:0.1em;
-      opacity:0;animation:fadeUp 0.6s ease forwards 0.12s;
-    }
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--cyan); }
 
-    /* Terminal */
-    .hero-terminal { background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;opacity:0;animation:fadeIn 0.9s ease forwards 0.85s;box-shadow:0 24px 64px var(--shadow);transition:background 0.3s,border-color 0.3s; }
-    .t-bar { background:var(--bg3);padding:0.7rem 1rem;display:flex;align-items:center;gap:0.45rem;border-bottom:1px solid var(--border);transition:background 0.3s; }
-    .dot { width:10px;height:10px;border-radius:50%; }
-    .dot-r{background:var(--red);} .dot-y{background:var(--gold);} .dot-g{background:var(--teal);}
-    .t-title { font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--dim);margin-left:0.4rem; }
-    .t-body { padding:1.5rem;font-family:'DM Mono',monospace;font-size:0.77rem;line-height:1.95; }
-    .tl{display:block;} .ti1{padding-left:1.4rem;} .ti2{padding-left:2.8rem;}
-    .tk{color:var(--teal);} .ts{color:var(--orange);} .tn{color:var(--blue);} .tv{color:var(--green);} .td{color:var(--dim);} .tb{color:var(--text);}
-    .t-cursor { display:inline-block;width:7px;height:14px;background:var(--gold);animation:blink 1.1s step-end infinite;vertical-align:middle;border-radius:1px; }
+.nav-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--green);
+  border: 1px solid rgba(16,224,128,0.25);
+  background: rgba(16,224,128,0.05);
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+.nav-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 2s infinite;
+}
 
-    /* ── STATS ── */
-    .stats-bar { border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2.5rem 0;margin:5rem 0; }
-    .stats-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;text-align:center; }
-    .stat-num { font-family:'DM Serif Display',serif;font-size:2.5rem;color:var(--gold);line-height:1;margin-bottom:0.4rem; }
-    .stat-lbl { font-family:'DM Mono',monospace;font-size:0.66rem;color:var(--dim);letter-spacing:0.12em;text-transform:uppercase; }
+/* ── HERO ── */
+#hero {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 100px 48px 60px;
+  gap: 48px;
+}
 
-    /* ── SECTIONS ── */
-    section { padding:6rem 0; }
-    .sec-lbl { font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--gold);letter-spacing:0.26em;text-transform:uppercase;margin-bottom:0.7rem; }
-    .sec-title { font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);color:var(--heading);line-height:1.15;margin-bottom:3rem; }
-    .sec-title span { color:var(--gold);font-style:italic; }
+.hero-left { max-width: 560px; }
 
-    /* ── EXPERIENCE ── */
-    .exp-list { display:flex;flex-direction:column; }
-    .exp-item { display:grid;grid-template-columns:190px 1fr;gap:2.5rem;padding:2.5rem 0;border-bottom:1px solid var(--border); }
-    .exp-date { font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--dim);margin-bottom:0.35rem;padding-top:0.25rem; }
-    .exp-co { font-family:'DM Mono',monospace;font-size:0.76rem;color:var(--gold); }
-    .exp-role { font-family:'DM Serif Display',serif;font-size:1.18rem;color:var(--heading);margin-bottom:0.85rem; }
-    .exp-ul { list-style:none;display:flex;flex-direction:column;gap:0.45rem; }
-    .exp-ul li { font-size:0.875rem;color:var(--dim);padding-left:1.2rem;position:relative;line-height:1.65; }
-    .exp-ul li::before { content:'→';position:absolute;left:0;color:var(--gold);font-size:0.72rem;top:0.18rem; }
-    .exp-ul strong { color:var(--text);font-weight:500; }
+.hero-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--cyan);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.2s forwards;
+}
 
-    /* ── PROJECTS ── */
-    .proj-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem; }
-    .proj-card { background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.75rem;display:flex;flex-direction:column;gap:0.85rem;transition:border-color 0.25s,transform 0.25s,box-shadow 0.25s,background 0.3s; }
-    .proj-card:hover { border-color:var(--gold);transform:translateY(-5px);box-shadow:0 14px 44px rgba(230,168,23,0.1); }
-    .proj-card.new-card { border-color:var(--gold-dim);position:relative; }
-    .proj-card.new-card::after { content:'NEW';font-family:'DM Mono',monospace;font-size:0.55rem;color:var(--gold);background:rgba(230,168,23,0.1);border:1px solid var(--gold-dim);border-radius:3px;padding:0.1rem 0.4rem;letter-spacing:0.1em;position:absolute;top:1.2rem;right:1.2rem; }
-    .proj-icon { width:38px;height:38px;background:rgba(230,168,23,0.07);border:1px solid var(--gold-dim);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1rem; }
-    .proj-name { font-family:'DM Serif Display',serif;font-size:1.02rem;color:var(--heading);line-height:1.28; }
-    .proj-desc { font-size:0.82rem;color:var(--dim);flex:1;line-height:1.68; }
-    .proj-metric { font-family:'DM Mono',monospace;font-size:0.66rem;color:var(--teal);background:rgba(57,208,200,0.07);border:1px solid rgba(57,208,200,0.2);border-radius:4px;padding:0.2rem 0.55rem;display:inline-block;margin-top:0.1rem; }
-    .proj-tags { display:flex;flex-wrap:wrap;gap:0.38rem; }
-    .tag { font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--dim);background:var(--bg3);border:1px solid var(--border);padding:0.18rem 0.52rem;border-radius:3px;transition:background 0.3s; }
-    .proj-links { display:flex;gap:1rem;flex-wrap:wrap;margin-top:0.3rem; }
-    .proj-link { font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--gold);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:gap 0.2s; }
-    .proj-link:hover { gap:0.55rem; }
+.hero-name {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(52px, 6vw, 84px);
+  font-weight: 800;
+  line-height: 0.92;
+  color: #e8f4ff;
+  margin-bottom: 8px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.4s forwards;
+}
 
-    /* ── SKILLS ── */
-    .skills-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem; }
-    .skill-group { background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.75rem;transition:background 0.3s; }
-    .sg-title { font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--gold);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:1.1rem;padding-bottom:0.75rem;border-bottom:1px solid var(--border); }
-    .pills { display:flex;flex-wrap:wrap;gap:0.45rem; }
-    .pill { font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--text);background:var(--bg3);border:1px solid var(--border);padding:0.28rem 0.72rem;border-radius:20px;transition:border-color 0.2s,color 0.2s,background 0.3s;cursor:default; }
-    .pill:hover { border-color:var(--gold);color:var(--gold); }
-    .pill.hot { border-color:var(--gold-dim);color:var(--gold); }
-    .certs-title { font-family:'DM Serif Display',serif;color:var(--heading);font-size:1.3rem;margin:3rem 0 1.4rem; }
-    .cert-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:1rem; }
-    .cert-item { display:flex;align-items:center;gap:1rem;padding:1.1rem 1.4rem;background:var(--bg2);border:1px solid var(--border);border-radius:6px;transition:border-color 0.2s,background 0.3s; }
-    .cert-item:hover { border-color:var(--gold-dim); }
-    .cert-icon { font-size:1.3rem; }
-    .cert-name { font-size:0.83rem;color:var(--text);line-height:1.4; }
-    .cert-org { font-family:'DM Mono',monospace;font-size:0.63rem;color:var(--dim);margin-top:0.15rem; }
+.hero-name .accent {
+  display: block;
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-    /* ── LOOKING FOR ── */
-    .looking-box {
-      background:linear-gradient(135deg,rgba(230,168,23,0.05),rgba(57,208,200,0.04));
-      border:1px solid var(--gold-dim);border-radius:10px;
-      padding:2rem 2.5rem;margin-top:3rem;
-      display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;
-    }
-    .looking-box h3 { font-family:'DM Serif Display',serif;color:var(--heading);font-size:1.15rem;margin-bottom:0.6rem; }
-    .looking-box p { font-size:0.85rem;color:var(--dim);line-height:1.7; }
-    .role-pills { display:flex;flex-wrap:wrap;gap:0.45rem;margin-top:0.8rem; }
-    .role-pill {
-      font-family:'DM Mono',monospace;font-size:0.64rem;
-      color:var(--gold);background:rgba(230,168,23,0.08);
-      border:1px solid var(--gold-dim);border-radius:20px;
-      padding:0.22rem 0.7rem;letter-spacing:0.06em;
-    }
+.hero-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: var(--amber);
+  letter-spacing: 0.1em;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.6s forwards;
+}
 
-    /* ── CONTACT ── */
-    #contact { border-top:1px solid var(--border); }
-    .contact-inner { display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center; }
-    .contact-text p { font-size:0.93rem;color:var(--dim);margin-bottom:2rem;max-width:400px;line-height:1.75; }
-    .contact-links { display:flex;flex-direction:column;gap:0.75rem; }
-    .c-link { display:flex;align-items:center;gap:1rem;padding:1rem 1.4rem;background:var(--bg2);border:1px solid var(--border);border-radius:6px;text-decoration:none;transition:border-color 0.2s,transform 0.2s,background 0.3s; }
-    .c-link:hover { border-color:var(--gold);transform:translateX(5px); }
-    .c-icon { font-size:1.05rem; }
-    .c-label { font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--dim);letter-spacing:0.1em;text-transform:uppercase; }
-    .c-val { font-size:0.83rem;color:var(--text);margin-top:0.1rem; }
+.hero-bio {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 440px;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.8s forwards;
+}
 
-    footer { padding:1.8rem 0;border-top:1px solid var(--border);text-align:center; }
-    footer p { font-family:'DM Mono',monospace;font-size:0.66rem;color:var(--dim);letter-spacing:0.1em; }
-    footer span { color:var(--gold); }
+.hero-bio strong { color: var(--text); }
 
-    @keyframes fadeUp { from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:translateY(0)} }
-    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
-    @keyframes blink  { 0%,100%{opacity:1} 50%{opacity:0} }
+.hero-ctas {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.8s 1s forwards;
+}
 
-    ::-webkit-scrollbar { width:5px; }
-    ::-webkit-scrollbar-track { background:var(--bg); }
-    ::-webkit-scrollbar-thumb { background:var(--border);border-radius:3px; }
-    ::-webkit-scrollbar-thumb:hover { background:var(--gold-dim); }
+.btn-primary {
+  background: var(--cyan);
+  color: #020408;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.btn-primary:hover { background: #40d8ff; transform: translateY(-1px); }
 
-    @media (max-width:920px) {
-      .hero-inner{grid-template-columns:1fr;} .hero-terminal{display:none;}
-      .proj-grid{grid-template-columns:1fr 1fr;}
-      .contact-inner{grid-template-columns:1fr;gap:3rem;}
-      .stats-grid{grid-template-columns:repeat(2,1fr);gap:2rem;}
-      .exp-item{grid-template-columns:1fr;gap:0.5rem;}
-      .looking-box{grid-template-columns:1fr;}
-      nav{top:26px;}
-    }
-    @media (max-width:600px) {
-      .proj-grid{grid-template-columns:1fr;} .skills-grid{grid-template-columns:1fr;}
-      .cert-grid{grid-template-columns:1fr;} .nav-links{gap:1.5rem;} .nav-right{gap:1rem;}
-    }
-  </style>
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  padding: 12px 24px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.btn-outline:hover { border-color: var(--cyan); color: var(--cyan); }
+
+/* ── HERO RIGHT — TERMINAL ── */
+.hero-terminal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 60px rgba(0,200,255,0.06);
+  opacity: 0;
+  animation: fadeIn 1s 1.2s forwards;
+}
+
+.terminal-bar {
+  background: #0c1824;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid var(--border);
+}
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot.r { background: #f04860; }
+.dot.y { background: var(--amber); }
+.dot.g { background: var(--green); }
+.terminal-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  margin-left: 8px;
+}
+
+.terminal-body {
+  padding: 20px 24px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  line-height: 2;
+  min-height: 320px;
+}
+
+.t-line { display: flex; gap: 10px; }
+.t-prompt { color: var(--green); }
+.t-cmd { color: var(--text); }
+.t-comment { color: var(--muted); }
+.t-key { color: var(--cyan); }
+.t-val { color: var(--amber); }
+.t-str { color: var(--green); }
+.t-num { color: #f080a0; }
+.t-out { color: var(--text); padding-left: 20px; }
+.t-blank { height: 8px; }
+.t-cursor {
+  display: inline-block;
+  width: 8px; height: 14px;
+  background: var(--cyan);
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
+}
+
+/* ── STATS BAR ── */
+.stats-bar {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.stat-item {
+  padding: 32px 48px;
+  border-right: 1px solid var(--border);
+  text-align: center;
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 44px;
+  font-weight: 800;
+  color: var(--cyan);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── SECTIONS ── */
+section {
+  position: relative;
+  z-index: 1;
+  padding: 96px 48px;
+}
+
+.section-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 800;
+  color: #e8f4ff;
+  line-height: 1.1;
+  margin-bottom: 48px;
+}
+
+.section-title .dim { color: var(--dim); }
+
+/* ── EXPERIENCE ── */
+#experience { background: var(--bg2); }
+
+.exp-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 0;
+  max-width: 900px;
+}
+
+.exp-timeline {
+  border-right: 1px solid var(--border);
+  padding-right: 32px;
+}
+
+.exp-nav-item {
+  padding: 16px 0;
+  cursor: pointer;
+  border-left: 2px solid transparent;
+  padding-left: 16px;
+  margin-left: -1px;
+  transition: all 0.2s;
+}
+.exp-nav-item:hover { border-left-color: var(--dim); }
+.exp-nav-item.active { border-left-color: var(--cyan); }
+
+.exp-nav-company {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.exp-nav-item.active .exp-nav-company { color: var(--cyan); }
+.exp-nav-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+.exp-content { padding-left: 48px; }
+.exp-panel { display: none; }
+.exp-panel.active { display: block; }
+
+.exp-role {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #e8f4ff;
+  margin-bottom: 4px;
+}
+.exp-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--amber);
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+}
+.exp-bullets { list-style: none; }
+.exp-bullets li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--muted);
+  display: flex;
+  gap: 10px;
+  line-height: 1.6;
+}
+.exp-bullets li::before { content: '▸'; color: var(--cyan); flex-shrink: 0; margin-top: 2px; }
+.exp-bullets li strong { color: var(--text); }
+.exp-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+.exp-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  padding: 3px 10px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--muted);
+  background: rgba(0,200,255,0.03);
+}
+
+/* ── PROJECTS ── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cyan), var(--purple));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s;
+}
+.project-card:hover { border-color: rgba(0,200,255,0.3); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,200,255,0.08); }
+.project-card:hover::before { transform: scaleX(1); }
+
+.project-icon {
+  font-size: 28px;
+  margin-bottom: 14px;
+}
+.project-badge {
+  position: absolute;
+  top: 16px; right: 16px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  padding: 2px 8px;
+  border-radius: 2px;
+  letter-spacing: 0.1em;
+}
+.badge-live { background: rgba(16,224,128,0.1); color: var(--green); border: 1px solid rgba(16,224,128,0.2); }
+.badge-new { background: rgba(240,160,32,0.1); color: var(--amber); border: 1px solid rgba(240,160,32,0.2); }
+
+.project-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #e8f4ff;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.project-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+.project-metrics {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.metric {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--cyan);
+}
+.metric span { color: var(--muted); font-size: 10px; }
+.project-stack { display: flex; flex-wrap: wrap; gap: 4px; }
+.stack-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  padding: 2px 8px;
+  background: rgba(0,200,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--muted);
+}
+
+/* ── SKILLS ── */
+#skills { background: var(--bg2); }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  max-width: 900px;
+}
+
+.skill-group {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px 24px;
+}
+.skill-group-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 14px;
+}
+.skill-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.skill-pill {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  color: var(--text);
+  background: rgba(255,255,255,0.02);
+  transition: all 0.15s;
+}
+.skill-pill:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,200,255,0.05); }
+
+/* ── CONTACT ── */
+#contact {
+  text-align: center;
+  padding: 96px 48px;
+  position: relative;
+  overflow: hidden;
+}
+#contact::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(0,200,255,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.contact-tagline {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 800;
+  color: #e8f4ff;
+  max-width: 600px;
+  margin: 0 auto 16px;
+  line-height: 1.1;
+}
+.contact-tagline .cyan { color: var(--cyan); }
+
+.contact-sub {
+  color: var(--muted);
+  font-size: 15px;
+  margin-bottom: 40px;
+}
+
+.contact-links {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 10px 20px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.2s;
+  letter-spacing: 0.05em;
+}
+.contact-link:hover { border-color: var(--cyan); color: var(--cyan); }
+
+footer {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 24px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+}
+.footer-text a { color: var(--cyan); text-decoration: none; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; } 50% { opacity: 0; }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
 </head>
 <body>
 
-<!-- ── AVAILABILITY BANNER ── -->
-<div class="avail-banner">
-  <span class="avail-dot"></span>
-  ACTIVELY SEEKING Full-Time Jobs  &nbsp;·&nbsp; MS DATA SCIENCE @ UB &nbsp;·&nbsp; <span>AVAILABLE NOW</span> &nbsp;·&nbsp; GRADUATING DEC 2026
-</div>
+<canvas id="bg-canvas"></canvas>
 
-<!-- ── NAV ── -->
+<!-- NAV -->
 <nav>
-  <div class="inner">
-    <a href="#hero" class="nav-logo">wasiqvoid</a>
-    <div class="nav-right">
-      <ul class="nav-links">
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <span class="icon" id="themeIcon">☀️</span>
-      </button>
-    </div>
-  </div>
+  <span class="nav-logo">wasiq<span>.</span>void</span>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-badge">Open to Internships · Summer 2026</div>
 </nav>
 
-<!-- ── HERO ── -->
+<!-- HERO -->
 <section id="hero">
-  <div class="container">
-    <div class="hero-inner">
-      <div>
-        <div class="seeking-pill">🟢 Open to internships · May 2026</div>
-        <p class="hero-label">// Data Scientist &amp; ML Engineer</p>
-        <p class="hero-edu">MS Engineering Data Science · <strong>University at Buffalo</strong> · Dec 2026</p>
-        <h1 class="hero-title">Wasiq<br><em>Bakhsh</em></h1>
-        <p class="hero-desc">I build end-to-end ML systems, LLM-powered applications, and scalable data engineering pipelines — from raw data to deployed production models.</p>
-        <div class="hero-buttons">
-          <a href="#projects" class="btn btn-primary">View Projects →</a>
-          <a href="Wasiq_Resume.pdf" download class="btn-resume">⬇ Download Resume</a>
-          <a href="https://linkedin.com/in/wasiqbakhsh" target="_blank" rel="noopener" class="btn btn-outline">LinkedIn ↗</a>
-          <a href="https://github.com/wasiqvoid" target="_blank" rel="noopener" class="btn btn-outline">GitHub ↗</a>
-        </div>
-      </div>
+  <div class="hero-left">
+    <div class="hero-label">// MS Engineering Data Science · University at Buffalo · Dec 2026</div>
+    <h1 class="hero-name">
+      Wasiq<br>
+      <span class="accent">Bakhsh</span>
+    </h1>
+    <div class="hero-title">// AI Engineer & Data Scientist</div>
+    <p class="hero-bio">
+      I build <strong>production AI systems</strong> — agentic RAG pipelines, LLM evaluation frameworks, fraud detection models, and data infrastructure — across <strong>financial services, healthcare, and analytics</strong>. 3+ years turning raw data into deployed intelligence.
+    </p>
+    <div class="hero-ctas">
+      <a href="https://github.com/wasiqvoid" class="btn-primary" target="_blank">View GitHub →</a>
+      <a href="https://linkedin.com/in/wasiqbakhsh" class="btn-outline" target="_blank">LinkedIn ↗</a>
+      <a href="mailto:Wasiqcyber@gmail.com" class="btn-outline">Email Me</a>
+    </div>
+  </div>
 
-      <div class="hero-terminal">
-        <div class="t-bar">
-          <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
-          <span class="t-title">wasiq.json</span>
-        </div>
-        <div class="t-body">
-          <span class="tl"><span class="tb">{</span></span>
-          <span class="tl ti1"><span class="tk">"name"</span>       : <span class="ts">"Wasiq Bakhsh"</span>,</span>
-          <span class="tl ti1"><span class="tk">"role"</span>       : <span class="ts">"Data Scientist"</span>,</span>
-          <span class="tl ti1"><span class="tk">"location"</span>   : <span class="ts">"Buffalo, NY"</span>,</span>
-          <span class="tl ti1"><span class="tk">"education"</span>  : <span class="ts">"MS @ UB (Dec 2026)"</span>,</span>
-          <span class="tl ti1"><span class="tk">"experience"</span> : <span class="tn">3</span> <span class="td">years</span>,</span>
-          <span class="tl ti1"><span class="tk">"stack"</span>      : [</span>
-          <span class="tl ti2"><span class="ts">"Python"</span>, <span class="ts">"SQL"</span>, <span class="ts">"TensorFlow"</span>,</span>
-          <span class="tl ti2"><span class="ts">"LangGraph"</span>, <span class="ts">"Databricks"</span>,</span>
-          <span class="tl ti2"><span class="ts">"Docker"</span>, <span class="ts">"AWS"</span>, <span class="ts">"MLflow"</span></span>
-          <span class="tl ti1">],</span>
-          <span class="tl ti1"><span class="tk">"seeking"</span>    : <span class="ts">"Summer 2026 Intern"</span>,</span>
-          <span class="tl ti1"><span class="tk">"status"</span>     : <span class="tv">"available"</span></span>
-          <span class="tl"><span class="tb">}</span><span class="t-cursor"></span></span>
-        </div>
-      </div>
+  <div class="hero-terminal">
+    <div class="terminal-bar">
+      <div class="dot r"></div>
+      <div class="dot y"></div>
+      <div class="dot g"></div>
+      <span class="terminal-title">~/wasiq/profile.py</span>
+    </div>
+    <div class="terminal-body">
+      <div class="t-line"><span class="t-prompt">❯</span><span class="t-cmd">python3 profile.py</span></div>
+      <div class="t-blank"></div>
+      <div class="t-line"><span class="t-comment"># Wasiq Bakhsh — AI/ML Engineer</span></div>
+      <div class="t-blank"></div>
+      <div class="t-line"><span class="t-key">location</span><span class="t-cmd"> = </span><span class="t-str">"Buffalo, NY"</span></div>
+      <div class="t-line"><span class="t-key">experience</span><span class="t-cmd"> = </span><span class="t-num">3</span><span class="t-comment">  # years</span></div>
+      <div class="t-line"><span class="t-key">status</span><span class="t-cmd"> = </span><span class="t-str">"available · summer 2026"</span></div>
+      <div class="t-blank"></div>
+      <div class="t-line"><span class="t-key">impact</span><span class="t-cmd"> = {</span></div>
+      <div class="t-out"><span class="t-str">"transactions_analyzed"</span><span class="t-cmd">: </span><span class="t-str">"1M+"</span><span class="t-cmd">,</span></div>
+      <div class="t-out"><span class="t-str">"fraud_detection_gain"</span><span class="t-cmd">: </span><span class="t-str">"30%"</span><span class="t-cmd">,</span></div>
+      <div class="t-out"><span class="t-str">"pipeline_latency_cut"</span><span class="t-cmd">: </span><span class="t-str">"50%"</span><span class="t-cmd">,</span></div>
+      <div class="t-out"><span class="t-str">"automation_gain"</span><span class="t-cmd">: </span><span class="t-str">"40%"</span></div>
+      <div class="t-line"><span class="t-cmd">}</span></div>
+      <div class="t-blank"></div>
+      <div class="t-line"><span class="t-prompt">❯</span><span class="t-cursor"></span></div>
     </div>
   </div>
 </section>
 
-<!-- ── STATS ── -->
-<div class="stats-bar">
-  <div class="container">
-    <div class="stats-grid">
-      <div><div class="stat-num">1M+</div><div class="stat-lbl">Transactions Analyzed</div></div>
-      <div><div class="stat-num">600K+</div><div class="stat-lbl">News Headlines Processed</div></div>
-      <div><div class="stat-num">90%+</div><div class="stat-lbl">Model Accuracy Achieved</div></div>
-      <div><div class="stat-num">30%</div><div class="stat-lbl">Avg. Efficiency Gains</div></div>
-    </div>
+<!-- STATS -->
+<div class="stats-bar reveal">
+  <div class="stat-item">
+    <div class="stat-num">1M+</div>
+    <div class="stat-label">Records Processed</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">30%</div>
+    <div class="stat-label">Fraud Detection Gain</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">600K+</div>
+    <div class="stat-label">Headlines Analyzed</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">90%+</div>
+    <div class="stat-label">Model Accuracy</div>
   </div>
 </div>
 
-<!-- ── EXPERIENCE ── -->
+<!-- EXPERIENCE -->
 <section id="experience">
-  <div class="container">
-    <p class="sec-lbl">// 01 — work history</p>
-    <h2 class="sec-title">Where I've <span>worked</span></h2>
-    <div class="exp-list">
+  <div class="section-tag">// 01 — work history</div>
+  <h2 class="section-title reveal">Where I've <span class="dim">worked</span></h2>
 
-      <div class="exp-item">
-        <div><div class="exp-date">Jan 2026 — Present</div><div class="exp-co">University at Buffalo</div></div>
-        <div>
-          <div class="exp-role">Data Graduate Assistant</div>
-          <ul class="exp-ul">
-            <li>Built reusable <strong>ingestion &amp; validation scripts</strong> (Python/SQL) standardizing data for <strong>500+ international students</strong>; enforced schema checks, deduplication, and null thresholds.</li>
-            <li>Designed <strong>Tableau dashboards</strong> tracking retention, engagement, and service KPIs; reduced <strong>manual reporting effort by 30%</strong>.</li>
-            <li>Prototyped <strong>predictive risk-flagging features</strong> using Python, Pandas, and Scikit-learn for student cohort analysis.</li>
-          </ul>
+  <div class="exp-grid reveal">
+    <div class="exp-timeline">
+      <div class="exp-nav-item active" onclick="showExp('ub')">
+        <div class="exp-nav-company">University at Buffalo</div>
+        <div class="exp-nav-date">Jan 2026 — Present</div>
+      </div>
+      <div class="exp-nav-item" onclick="showExp('franchise')">
+        <div class="exp-nav-company">Franchise Pipeline</div>
+        <div class="exp-nav-date">Jan 2024 — Jun 2025</div>
+      </div>
+      <div class="exp-nav-item" onclick="showExp('bok')">
+        <div class="exp-nav-company">Bank of Khyber</div>
+        <div class="exp-nav-date">Jul 2024 — Jul 2025</div>
+      </div>
+      <div class="exp-nav-item" onclick="showExp('hob')">
+        <div class="exp-nav-company">House of Brands Media</div>
+        <div class="exp-nav-date">Feb 2024 — Oct 2024</div>
+      </div>
+    </div>
+
+    <div class="exp-content">
+      <div class="exp-panel active" id="exp-ub">
+        <div class="exp-role">Data Science Graduate Assistant</div>
+        <div class="exp-meta">University at Buffalo — International Student Services · Buffalo, NY</div>
+        <ul class="exp-bullets">
+          <li><strong>Built Python/SQL ingestion pipelines</strong> for 500+ student records on AWS S3/Lambda enforcing schema checks and quality validation.</li>
+          <li><strong>Designed Tableau dashboards</strong> tracking retention KPIs reducing manual reporting effort by 30%.</li>
+          <li>Translated pipeline outputs into actionable student support strategies for non-technical stakeholders.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag">Python</span><span class="exp-tag">SQL</span><span class="exp-tag">AWS S3</span><span class="exp-tag">Tableau</span><span class="exp-tag">ETL</span>
         </div>
       </div>
 
-      <div class="exp-item">
-        <div><div class="exp-date">Jul 2024 — Jul 2025</div><div class="exp-co">Bank of Khyber</div></div>
-        <div>
-          <div class="exp-role">Data Science Intern</div>
-          <ul class="exp-ul">
-            <li>Developed <strong>fraud detection models</strong> (Scikit-learn, TensorFlow) improving detection accuracy by <strong>30%</strong>; calibrated using Precision, Recall, and ROC-AUC.</li>
-            <li>Engineered features from <strong>1M+ transactions</strong> (merchant risk, velocity, amount deviations); built <strong>reproducible ETL pipelines</strong> across SQL and AWS S3.</li>
-            <li>Reduced <strong>false positives by 20%</strong> via class-imbalance handling; automated dashboards cutting <strong>fraud response time by 15%</strong>.</li>
-          </ul>
+      <div class="exp-panel" id="exp-franchise">
+        <div class="exp-role">Data Scientist & BI Developer</div>
+        <div class="exp-meta">Franchise Pipeline Solutions · Chicago, IL (Remote)</div>
+        <ul class="exp-bullets">
+          <li><strong>Built lead-to-deal pipelines</strong> in Salesforce processing incoming account data with ETL workflows into Tableau.</li>
+          <li><strong>Developed revenue forecasts and budget projections</strong> using time-series modeling in Python for senior stakeholders.</li>
+          <li><strong>Automated Excel reporting workflows</strong> using AI and Python reducing manual effort by 40%.</li>
+          <li>Delivered executive presentations translating analytics into strategic business recommendations.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag">Salesforce</span><span class="exp-tag">Python</span><span class="exp-tag">Tableau</span><span class="exp-tag">Power BI</span><span class="exp-tag">Snowflake</span><span class="exp-tag">Azure DevOps</span>
         </div>
       </div>
 
-      <div class="exp-item">
-        <div><div class="exp-date">Feb 2024 — Oct 2024</div><div class="exp-co">House of Brands Media</div></div>
-        <div>
-          <div class="exp-role">Data Scientist (Freelance)</div>
-          <ul class="exp-ul">
-            <li>Built <strong>marketing KPI datasets</strong> and A/B testing frameworks; improved <strong>lead generation by 25%</strong> and drove <strong>30% revenue growth</strong>.</li>
-            <li>Delivered <strong>Salesforce-to-Tableau</strong> franchise analytics; automated data pipelines reducing operational latency by <strong>50%</strong>.</li>
-          </ul>
+      <div class="exp-panel" id="exp-bok">
+        <div class="exp-role">Data Science Intern</div>
+        <div class="exp-meta">The Bank of Khyber · Remote</div>
+        <ul class="exp-bullets">
+          <li><strong>Built ETL pipelines</strong> processing 1M+ transactions with feature engineering for fraud analytics.</li>
+          <li><strong>Developed XGBoost and Neural Network classifiers</strong> improving fraud detection accuracy by 30% and reducing false positives by 20% via SMOTE.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag">XGBoost</span><span class="exp-tag">TensorFlow</span><span class="exp-tag">SQL</span><span class="exp-tag">AWS S3</span><span class="exp-tag">SMOTE</span>
         </div>
       </div>
 
-      <div class="exp-item">
-        <div><div class="exp-date">Dec 2023 — May 2024</div><div class="exp-co">Alkhidmat Hospital</div></div>
-        <div>
-          <div class="exp-role">Data Scientist Intern</div>
-          <ul class="exp-ul">
-            <li>Developed <strong>ML models</strong> predicting patient readmission with <strong>90%+ accuracy</strong> using Python, Scikit-learn, and TensorFlow.</li>
-            <li>Improved <strong>data accuracy by 20%</strong>, reduced reporting time by 30%, and saved staff <strong>10 hrs/week</strong> through EHR workflow optimization.</li>
-          </ul>
+      <div class="exp-panel" id="exp-hob">
+        <div class="exp-role">Data Scientist</div>
+        <div class="exp-meta">House of Brands Media · Lisbon, Portugal (Remote)</div>
+        <ul class="exp-bullets">
+          <li><strong>Automated data preparation pipelines</strong> reducing operational latency by 50%.</li>
+          <li><strong>Built A/B testing and lift analysis frameworks</strong> improving lead generation by 25% and driving 30% revenue growth.</li>
+          <li>Designed time-series models with Apache Spark and delivered Snowflake dataset integrations for downstream analytics.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag">Apache Spark</span><span class="exp-tag">Snowflake</span><span class="exp-tag">Python</span><span class="exp-tag">A/B Testing</span>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ── PROJECTS ── -->
+<!-- PROJECTS -->
 <section id="projects">
-  <div class="container">
-    <p class="sec-lbl">// 02 — selected work</p>
-    <h2 class="sec-title">Things I've <span>built</span></h2>
-    <div class="proj-grid">
+  <div class="section-tag">// 02 — selected work</div>
+  <h2 class="section-title reveal">Things I've <span class="dim">built</span></h2>
 
-      <div class="proj-card">
-        <div class="proj-icon">🗣️</div>
-        <div class="proj-name">AI-Powered SQL Query Assistant</div>
-        <p class="proj-desc">Natural language to SQL converter using Llama/OpenAI models. Streamlit frontend, PostgreSQL backend on Render, secure hashed authentication.</p>
-        <div class="proj-metric">⚡ Live in production · avg. query &lt;1.2s</div>
-        <div class="proj-tags"><span class="tag">Python</span><span class="tag">Streamlit</span><span class="tag">OpenAI</span><span class="tag">PostgreSQL</span><span class="tag">Render</span></div>
-        <div class="proj-links">
-          <a href="https://wasiq-aisql.streamlit.app/" class="proj-link" target="_blank" rel="noopener">Live Demo →</a>
-          <a href="https://github.com/wasiqvoid/ai-sql-streamlit" class="proj-link" target="_blank" rel="noopener">GitHub →</a>
-        </div>
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="project-icon">🤖</div>
+      <div class="project-badge badge-live">LIVE</div>
+      <div class="project-name">Agentic RAG Pipeline</div>
+      <div class="project-desc">Production agentic AI with multi-step reasoning, hallucination grounding, and vector-based retrieval deployed on AWS Lambda.</div>
+      <div class="project-metrics">
+        <div class="metric">&lt;1.5s <span>latency</span></div>
+        <div class="metric">AWS <span>deployed</span></div>
       </div>
-
-      <div class="proj-card">
-        <div class="proj-icon">📈</div>
-        <div class="proj-name">Financial Sentiment &amp; Stock Movement Prediction</div>
-        <p class="proj-desc">Scalable pipeline aligning 600K+ financial news headlines with 7,000+ U.S. stocks. Extracted sentiment via FinBERT, engineered temporal features, applied SHAP explainability.</p>
-        <div class="proj-metric">📊 600K+ headlines · 7,000+ stocks processed</div>
-        <div class="proj-tags"><span class="tag">FinBERT</span><span class="tag">XGBoost</span><span class="tag">LSTM</span><span class="tag">SHAP</span><span class="tag">NLP</span></div>
-        <div class="proj-links"><a href="https://github.com/wasiqvoid/Financial-Sentiment-Stock-Movement-Prediction" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a></div>
+      <div class="project-stack">
+        <span class="stack-tag">LangGraph</span><span class="stack-tag">GPT-4</span><span class="stack-tag">FastAPI</span><span class="stack-tag">AWS Lambda</span><span class="stack-tag">MLflow</span>
       </div>
+    </div>
 
-      <div class="proj-card">
-        <div class="proj-icon">🚀</div>
-        <div class="proj-name">Student Performance Prediction — ML Pipeline</div>
-        <p class="proj-desc">End-to-end ML system: data ingestion → 16 classification experiments tracked via MLflow/DagsHub → best model by F1-score, served via FastAPI + Streamlit, Dockerized and deployed on Render.</p>
-        <div class="proj-metric">🔬 16 experiments · best F1 selected automatically</div>
-        <div class="proj-tags"><span class="tag">FastAPI</span><span class="tag">Docker</span><span class="tag">MLflow</span><span class="tag">DagsHub</span><span class="tag">Render</span></div>
-        <div class="proj-links"><a href="https://github.com/wasiqvoid/Student-performance-pred" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a></div>
+    <div class="project-card reveal">
+      <div class="project-icon">💬</div>
+      <div class="project-badge badge-live">LIVE</div>
+      <div class="project-name">AI SQL Query Assistant</div>
+      <div class="project-desc">Natural language to SQL using GPT-4 and LLaMA. Live in production with sub-1.2s response times. Makes databases accessible to everyone.</div>
+      <div class="project-metrics">
+        <div class="metric">&lt;1.2s <span>response</span></div>
+        <div class="metric">Live <span>production</span></div>
       </div>
-
-      <div class="proj-card">
-        <div class="proj-icon">₿</div>
-        <div class="proj-name">Bitcoin Price Forecasting</div>
-        <p class="proj-desc">Leveraged Yahoo Finance API to extract and analyze Bitcoin historical data, generating forecasts for price highs, lows, and volume trends, visualized through interactive Tableau dashboards.</p>
-        <div class="proj-metric">📅 5-year historical data · daily granularity</div>
-        <div class="proj-tags"><span class="tag">Python</span><span class="tag">yFinance</span><span class="tag">Tableau</span><span class="tag">Time Series</span><span class="tag">Forecasting</span></div>
-        <div class="proj-links"><a href="https://github.com/wasiqvoid/Bitcoin-Prediction" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a></div>
+      <div class="project-stack">
+        <span class="stack-tag">GPT-4</span><span class="stack-tag">LLaMA</span><span class="stack-tag">Streamlit</span><span class="stack-tag">PostgreSQL</span><span class="stack-tag">Render</span>
       </div>
+    </div>
 
-      <div class="proj-card">
-        <div class="proj-icon">🤖</div>
-        <div class="proj-name">Multilingual Real-Time AI Chatbot</div>
-        <p class="proj-desc">Led a 4-member team building a bilingual AI conversational agent for e-learning. Integrated OpenAI Whisper STT, Meta AI NLP models, and ElevenLabs TTS with real-time low-latency processing.</p>
-        <div class="proj-metric">🌐 Bilingual · &lt;300ms end-to-end latency</div>
-        <div class="proj-tags"><span class="tag">Whisper</span><span class="tag">TensorFlow</span><span class="tag">ElevenLabs</span><span class="tag">NLP</span><span class="tag">LLMOps</span></div>
-        <div class="proj-links"><a href="https://github.com/wasiqvoid" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a></div>
+    <div class="project-card reveal">
+      <div class="project-icon">📊</div>
+      <div class="project-badge badge-new">NEW</div>
+      <div class="project-name">Financial Sentiment Pipeline</div>
+      <div class="project-desc">Scalable NLP pipeline aligning 600K+ headlines with 7,000+ US stocks. SHAP explainability across LR, RF, XGBoost, and LSTM.</div>
+      <div class="project-metrics">
+        <div class="metric">600K+ <span>headlines</span></div>
+        <div class="metric">7,000+ <span>stocks</span></div>
       </div>
-
-      <div class="proj-card">
-        <div class="proj-icon">🧠</div>
-        <div class="proj-name">EEG Seizure Prediction with ML</div>
-        <p class="proj-desc">Classified epileptic seizures from 11,500 EEG samples × 178 features. Applied IQR outlier handling, SMOTE oversampling, and benchmarked 6 classifiers — tuned Random Forest achieving 78% accuracy.</p>
-        <div class="proj-metric">🎯 78% accuracy · 6 classifiers benchmarked</div>
-        <div class="proj-tags"><span class="tag">Scikit-learn</span><span class="tag">SMOTE</span><span class="tag">Random Forest</span><span class="tag">GridSearchCV</span><span class="tag">EEG</span></div>
-        <div class="proj-links"><a href="https://github.com/wasiqvoid/EEG-Seizure-Prediction-with-ML" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a></div>
+      <div class="project-stack">
+        <span class="stack-tag">FinBERT</span><span class="stack-tag">XGBoost</span><span class="stack-tag">LSTM</span><span class="stack-tag">SHAP</span><span class="stack-tag">Python</span>
       </div>
+    </div>
 
-      <div class="proj-card new-card">
-        <div class="proj-icon">🔁</div>
-        <div class="proj-name">Agentic RAG Pipeline with LangGraph</div>
-        <p class="proj-desc">Production-ready agentic AI system using LangGraph for multi-step reasoning and tool execution. Implements RAG with GPT-4, vector search, and hallucination grounding — deployed via FastAPI on AWS Lambda.</p>
-        <div class="proj-metric">🤖 Agentic · hallucination grounding · AWS deployed</div>
-        <div class="proj-tags"><span class="tag">LangGraph</span><span class="tag">GPT-4</span><span class="tag">RAG</span><span class="tag">FastAPI</span><span class="tag">AWS Lambda</span></div>
-        <div class="proj-links"><a href="https://github.com/wasiqvoid" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a></div>
+    <div class="project-card reveal">
+      <div class="project-icon">🏗️</div>
+      <div class="project-badge badge-new">NEW</div>
+      <div class="project-name">Lakehouse Data Pipeline</div>
+      <div class="project-desc">Enterprise lakehouse on Databricks with metadata-driven ingestion, PySpark transformations, and Kimball Star Schema on Snowflake.</div>
+      <div class="project-metrics">
+        <div class="metric">Delta Lake <span>storage</span></div>
+        <div class="metric">CI/CD <span>automated</span></div>
       </div>
-
-      <div class="proj-card new-card">
-        <div class="proj-icon">🏗️</div>
-        <div class="proj-name">Lakehouse Data Engineering Pipeline</div>
-        <p class="proj-desc">Enterprise-grade stack on Databricks and Delta Lake. Metadata-driven ingestion, PySpark transformations, and a Kimball Star Schema warehouse on Snowflake — CI/CD via Azure DevOps.</p>
-        <div class="proj-metric">🏛️ Star Schema · Snowflake · Azure DevOps CI/CD</div>
-        <div class="proj-tags"><span class="tag">Databricks</span><span class="tag">Delta Lake</span><span class="tag">PySpark</span><span class="tag">Snowflake</span><span class="tag">Azure DevOps</span></div>
-        <div class="proj-links"><a href="https://github.com/wasiqvoid" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a></div>
+      <div class="project-stack">
+        <span class="stack-tag">Databricks</span><span class="stack-tag">PySpark</span><span class="stack-tag">Snowflake</span><span class="stack-tag">Delta Lake</span><span class="stack-tag">Azure DevOps</span>
       </div>
+    </div>
 
-      <div class="proj-card new-card">
-        <div class="proj-icon">📊</div>
-        <div class="proj-name">LLM Evaluation &amp; Benchmarking Framework</div>
-        <p class="proj-desc">Structured evaluation framework for LLM outputs — rubric-based scoring, LLM-as-a-judge workflows, and hallucination detection across 600K+ records with full audit trail documentation.</p>
-        <div class="proj-metric">✅ 600K+ records · full audit trail · MLflow tracked</div>
-        <div class="proj-tags"><span class="tag">LLM Eval</span><span class="tag">SHAP</span><span class="tag">Python</span><span class="tag">MLflow</span><span class="tag">Audit Trail</span></div>
-        <div class="proj-links"><a href="https://github.com/wasiqvoid" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a></div>
+    <div class="project-card reveal">
+      <div class="project-icon">🧠</div>
+      <div class="project-badge badge-new">NEW</div>
+      <div class="project-name">LLM Evaluation Framework</div>
+      <div class="project-desc">LLM-as-judge evaluation harness with rubric scoring, hallucination detection, and SHAP explainability across 600K+ records.</div>
+      <div class="project-metrics">
+        <div class="metric">600K+ <span>records</span></div>
+        <div class="metric">Full <span>audit trail</span></div>
       </div>
+      <div class="project-stack">
+        <span class="stack-tag">Python</span><span class="stack-tag">MLflow</span><span class="stack-tag">LLM-as-Judge</span><span class="stack-tag">SHAP</span><span class="stack-tag">HuggingFace</span>
+      </div>
+    </div>
 
+    <div class="project-card reveal">
+      <div class="project-icon">⚡</div>
+      <div class="project-badge badge-new">NEW</div>
+      <div class="project-name">End-to-End ML Pipeline</div>
+      <div class="project-desc">Full deployment pipeline with 16 tracked experiments via MLflow, best model served via FastAPI and Streamlit, Dockerized to Render.</div>
+      <div class="project-metrics">
+        <div class="metric">16 <span>experiments</span></div>
+        <div class="metric">Docker <span>deployed</span></div>
+      </div>
+      <div class="project-stack">
+        <span class="stack-tag">FastAPI</span><span class="stack-tag">Docker</span><span class="stack-tag">MLflow</span><span class="stack-tag">DagsHub</span><span class="stack-tag">Render</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ── SKILLS ── -->
+<!-- SKILLS -->
 <section id="skills">
-  <div class="container">
-    <p class="sec-lbl">// 03 — toolkit</p>
-    <h2 class="sec-title">What I <span>work with</span></h2>
-    <div class="skills-grid">
+  <div class="section-tag">// 03 — technical stack</div>
+  <h2 class="section-title reveal">What I <span class="dim">work with</span></h2>
 
-      <div class="skill-group">
-        <div class="sg-title">⚙️ &nbsp; Languages &amp; Querying</div>
-        <div class="pills">
-          <span class="pill hot">Python</span><span class="pill hot">SQL</span>
-          <span class="pill">R</span><span class="pill">Bash</span><span class="pill">MySQL</span><span class="pill">PostgreSQL</span>
-        </div>
-      </div>
-
-      <div class="skill-group">
-        <div class="sg-title">🤖 &nbsp; ML &amp; Modeling</div>
-        <div class="pills">
-          <span class="pill hot">Scikit-learn</span><span class="pill hot">TensorFlow</span><span class="pill hot">XGBoost</span>
-          <span class="pill">PyTorch</span><span class="pill">LSTM</span><span class="pill">SHAP</span><span class="pill">Optuna</span><span class="pill">SMOTE</span>
-        </div>
-      </div>
-
-      <div class="skill-group">
-        <div class="sg-title">🧬 &nbsp; NLP &amp; AI</div>
-        <div class="pills">
-          <span class="pill hot">LangGraph</span><span class="pill hot">GPT-4 / Claude</span><span class="pill hot">RAG Pipelines</span>
-          <span class="pill">Prompt Engineering</span><span class="pill">FinBERT</span><span class="pill">Whisper</span><span class="pill">LLMOps</span>
-        </div>
-      </div>
-
-      <div class="skill-group">
-        <div class="sg-title">🚢 &nbsp; MLOps &amp; Deployment</div>
-        <div class="pills">
-          <span class="pill hot">Docker</span><span class="pill hot">FastAPI</span><span class="pill hot">MLflow</span>
-          <span class="pill">DagsHub</span><span class="pill">Streamlit</span><span class="pill">Render</span><span class="pill">Git / GitHub</span><span class="pill">Azure DevOps</span>
-        </div>
-      </div>
-
-      <div class="skill-group">
-        <div class="sg-title">☁️ &nbsp; Cloud &amp; Data Engineering</div>
-        <div class="pills">
-          <span class="pill hot">AWS S3 / Lambda</span><span class="pill hot">Databricks</span><span class="pill hot">Snowflake</span>
-          <span class="pill">Delta Lake</span><span class="pill">PySpark</span><span class="pill">Azure</span><span class="pill">ETL Pipelines</span><span class="pill">Pandas</span>
-        </div>
-      </div>
-
-      <div class="skill-group">
-        <div class="sg-title">📊 &nbsp; Visualization &amp; BI</div>
-        <div class="pills">
-          <span class="pill hot">Tableau</span><span class="pill hot">Power BI</span>
-          <span class="pill">Matplotlib</span><span class="pill">Seaborn</span><span class="pill">Excel</span><span class="pill">Looker Studio</span>
-        </div>
-      </div>
-
-    </div>
-
-    <h3 class="certs-title">Certifications</h3>
-    <div class="cert-grid">
-      <div class="cert-item"><span class="cert-icon">🏅</span><div><div class="cert-name">Google Data Analytics Certificate</div><div class="cert-org">Google · Coursera</div></div></div>
-      <div class="cert-item"><span class="cert-icon">🏅</span><div><div class="cert-name">Fundamentals of Visualization with Tableau</div><div class="cert-org">Tableau · Coursera — With Honors</div></div></div>
-      <div class="cert-item"><span class="cert-icon">🏅</span><div><div class="cert-name">Data Analysis with Python</div><div class="cert-org">IBM · Coursera</div></div></div>
-      <div class="cert-item"><span class="cert-icon">🏅</span><div><div class="cert-name">Getting Started with Data Analytics on AWS</div><div class="cert-org">Amazon Web Services · Coursera</div></div></div>
-    </div>
-
-    <!-- LOOKING FOR BOX -->
-    <div class="looking-box">
-      <div>
-        <h3>Currently Seeking Internships</h3>
-        <p>MS Engineering Data Science candidate at University at Buffalo graduating December 2026. Available full-time May–August 2026 for remote or in-person roles across the US.</p>
-        <div class="role-pills">
-          <span class="role-pill">Data Science</span>
-          <span class="role-pill">Data Engineering</span>
-          <span class="role-pill">AI / ML Engineering</span>
-          <span class="role-pill">Analytics</span>
-          <span class="role-pill">Business Intelligence</span>
-          <span class="role-pill">GenAI / LLM Engineering</span>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:0.75rem;min-width:180px;">
-        <a href="mailto:Wasiqcyber@gmail.com" class="btn btn-primary">Hire Me →</a>
-        <a href="Wasiq_Resume.pdf" download class="btn-resume">⬇ Resume</a>
+  <div class="skills-grid reveal">
+    <div class="skill-group">
+      <div class="skill-group-title">LLM & GenAI</div>
+      <div class="skill-pills">
+        <span class="skill-pill">LangGraph</span><span class="skill-pill">GPT-4</span><span class="skill-pill">Claude</span><span class="skill-pill">RAG Pipelines</span><span class="skill-pill">Vector Search</span><span class="skill-pill">Prompt Engineering</span><span class="skill-pill">LLMOps</span>
       </div>
     </div>
-
+    <div class="skill-group">
+      <div class="skill-group-title">ML & Modeling</div>
+      <div class="skill-pills">
+        <span class="skill-pill">PyTorch</span><span class="skill-pill">TensorFlow</span><span class="skill-pill">XGBoost</span><span class="skill-pill">Scikit-learn</span><span class="skill-pill">LSTM</span><span class="skill-pill">SHAP</span><span class="skill-pill">SMOTE</span><span class="skill-pill">Optuna</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Data Engineering</div>
+      <div class="skill-pills">
+        <span class="skill-pill">PySpark</span><span class="skill-pill">Databricks</span><span class="skill-pill">Snowflake</span><span class="skill-pill">Delta Lake</span><span class="skill-pill">dbt</span><span class="skill-pill">Airflow</span><span class="skill-pill">ETL/ELT</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Cloud & Deployment</div>
+      <div class="skill-pills">
+        <span class="skill-pill">AWS S3/Lambda</span><span class="skill-pill">Azure DevOps</span><span class="skill-pill">Docker</span><span class="skill-pill">FastAPI</span><span class="skill-pill">MLflow</span><span class="skill-pill">CI/CD</span><span class="skill-pill">GCP</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">BI & Analytics</div>
+      <div class="skill-pills">
+        <span class="skill-pill">Tableau</span><span class="skill-pill">Power BI</span><span class="skill-pill">SQL</span><span class="skill-pill">Salesforce</span><span class="skill-pill">Excel</span><span class="skill-pill">Looker Studio</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Languages</div>
+      <div class="skill-pills">
+        <span class="skill-pill">Python</span><span class="skill-pill">SQL</span><span class="skill-pill">R</span><span class="skill-pill">Bash</span><span class="skill-pill">PostgreSQL</span><span class="skill-pill">MySQL</span>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ── CONTACT ── -->
+<!-- CONTACT -->
 <section id="contact">
-  <div class="container">
-    <div class="contact-inner">
-      <div class="contact-text">
-        <p class="sec-lbl">// 04 — get in touch</p>
-        <h2 class="sec-title">Let's <span>connect</span></h2>
-        <p>I'm actively looking for Data Science, Data Engineering, AI/ML, and Analytics internships for Summer 2026. If you have an opportunity or just want to talk data — reach out.</p>
-        <a href="mailto:Wasiqcyber@gmail.com" class="btn btn-primary">Send an Email →</a>
-      </div>
-      <div class="contact-links">
-        <a href="mailto:Wasiqcyber@gmail.com" class="c-link"><span class="c-icon">✉️</span><div><div class="c-label">Email</div><div class="c-val">Wasiqcyber@gmail.com</div></div></a>
-        <a href="https://linkedin.com/in/wasiqbakhsh" class="c-link" target="_blank" rel="noopener"><span class="c-icon">💼</span><div><div class="c-label">LinkedIn</div><div class="c-val">linkedin.com/in/wasiqbakhsh</div></div></a>
-        <a href="https://github.com/wasiqvoid" class="c-link" target="_blank" rel="noopener"><span class="c-icon">🐙</span><div><div class="c-label">GitHub</div><div class="c-val">github.com/wasiqvoid</div></div></a>
-      </div>
-    </div>
+  <div class="section-tag" style="text-align:center">// 04 — get in touch</div>
+  <h2 class="contact-tagline reveal">Let's build something <span class="cyan">intelligent</span></h2>
+  <p class="contact-sub reveal">Open to Summer 2026 internships in Data Science, ML Engineering, AI, and BI · Graduating Dec 2026</p>
+  <div class="contact-links reveal">
+    <a href="mailto:Wasiqcyber@gmail.com" class="contact-link">✉ Wasiqcyber@gmail.com</a>
+    <a href="https://linkedin.com/in/wasiqbakhsh" class="contact-link" target="_blank">in LinkedIn</a>
+    <a href="https://github.com/wasiqvoid" class="contact-link" target="_blank">{ } GitHub</a>
   </div>
 </section>
 
 <footer>
-  <div class="container">
-    <p>Designed &amp; built by <span>Wasiq Bakhsh</span> · Buffalo, NY · <span>2026</span></p>
-  </div>
+  <div class="footer-text">Designed & built by <a href="#">Wasiq Bakhsh</a> · Buffalo, NY · 2026</div>
+  <div class="footer-text">MS Engineering Data Science · <a href="https://buffalo.edu">University at Buffalo</a></div>
 </footer>
 
 <script>
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 130) current = s.id; });
-    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
-  });
+// ── CANVAS PARTICLE NETWORK ──
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [], mouse = { x: -1000, y: -1000 };
 
-  const toggle = document.getElementById('themeToggle');
-  const icon   = document.getElementById('themeIcon');
-  const html   = document.documentElement;
-  const saved  = localStorage.getItem('theme') || 'dark';
-  html.setAttribute('data-theme', saved);
-  icon.textContent = saved === 'dark' ? '☀️' : '🌙';
-  toggle.addEventListener('click', () => {
-    const current = html.getAttribute('data-theme');
-    const next = current === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', next);
-    icon.textContent = next === 'dark' ? '☀️' : '🌙';
-    localStorage.setItem('theme', next);
-  });
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.vx = (Math.random() - 0.5) * 0.3;
+    this.vy = (Math.random() - 0.5) * 0.3;
+    this.r = Math.random() * 1.5 + 0.5;
+    this.alpha = Math.random() * 0.5 + 0.1;
+  }
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    const dx = this.x - mouse.x, dy = this.y - mouse.y;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    if (dist < 120) {
+      this.x += dx / dist * 0.8;
+      this.y += dy / dist * 0.8;
+    }
+    if (this.x < 0 || this.x > W) this.vx *= -1;
+    if (this.y < 0 || this.y > H) this.vy *= -1;
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(0,200,255,${this.alpha})`;
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < 80; i++) particles.push(new Particle());
+
+function drawLines() {
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const d = Math.sqrt(dx*dx + dy*dy);
+      if (d < 120) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(0,200,255,${0.08 * (1 - d/120)})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+function animate() {
+  ctx.clearRect(0, 0, W, H);
+  particles.forEach(p => { p.update(); p.draw(); });
+  drawLines();
+  requestAnimationFrame(animate);
+}
+animate();
+
+// ── EXPERIENCE TABS ──
+function showExp(id) {
+  document.querySelectorAll('.exp-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.exp-nav-item').forEach(i => i.classList.remove('active'));
+  document.getElementById('exp-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
